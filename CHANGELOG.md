@@ -3,7 +3,8 @@ All notable changes to `knotx-junit5` will be documented in this file.
 
 ## Unreleased
 List of changes that are finished but not yet released in any final version.
-                
+- [PR-78](https://github.com/Knotx/knotx-junit5/pull/78) Upgrade Gradle to 7.6.3, upgrade wiremock dependency.
+
 ## 2.3.1
                 
 ## 2.3.0
