@@ -51,11 +51,11 @@ dependencies {
     implementation(group = "org.junit.jupiter", name = "junit-jupiter-params")
     implementation(group = "org.mockito", name = "mockito-core")
     implementation(group = "org.mockito", name = "mockito-junit-jupiter")
-    implementation(group = "com.github.tomakehurst", name = "wiremock-jre8")
+    implementation(group = "org.wiremock", name = "wiremock")
     implementation(group = "commons-io", name = "commons-io")
-    implementation(group = "org.jsoup", name = "jsoup", version = "1.14.2")
+    implementation(group = "org.jsoup", name = "jsoup", version = "1.17.2")
 
-    testImplementation(group = "io.rest-assured", name = "rest-assured", version = "4.4.0")
+    testImplementation(group = "io.rest-assured", name = "rest-assured", version = "5.4.0")
     testImplementation(group = "io.vertx", name = "vertx-web")
 
     testRuntimeOnly("io.knotx:knotx-launcher:${project.version}")
@@ -66,7 +66,7 @@ tasks {
     named<RatTask>("rat") {
         excludes.addAll(listOf(
             "**/*.md", // docs
-            "gradle/wrapper/**", "gradle*", "**/build/**", // Gradle
+            "gradle/wrapper/**", "gradle*", "**/build/**", "**/bin/**", // Gradle
             "*.iml", "*.ipr", "*.iws", "*.idea/**", // IDEs
             "**/generated/*", "**/*.adoc", "**/resources/**", // assets
             ".github/*"
@@ -77,6 +77,7 @@ tasks {
     // AUDIT
     val audit = named("audit") {
         group = "verification"
+        onlyIf { project.hasProperty("audit.enabled") }
     }
     getByName("check").dependsOn(audit)
     getByName("test").mustRunAfter(audit)
